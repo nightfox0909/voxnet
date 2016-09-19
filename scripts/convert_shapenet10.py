@@ -13,7 +13,6 @@ from voxnet.data import shapenet10
 
 def write(records, fname):
     writer = npytar.NpyTarWriter(fname)
-    writer2=open(fname+'.txt','w')
     for (classname, instance, rot, fname) in records:
         class_id = int(shapenet10.class_name_to_id[classname])
         name = '{:03d}.{}.{:03d}'.format(class_id, instance, rot)
@@ -21,9 +20,7 @@ def write(records, fname):
         arrpad = np.zeros((32,)*3, dtype=np.uint8)
         arrpad[1:-1,1:-1,1:-1] = arr
         writer.add(arrpad, name)
-        writer2.write(arrpad,name)
     writer.close()
-    writer2.close()
 
 
 parser = argparse.ArgumentParser()
